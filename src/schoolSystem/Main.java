@@ -91,7 +91,7 @@ public class Main {
 
 	}
 
-	public static int addFakeStudents(int n, int i) {
+	public static long addFakeStudents(int n) {
 
 		try {
 
@@ -102,8 +102,11 @@ public class Main {
 			String fName = "AHD";
 			String lName = "ZAKWANI";
 			String birthDay = "1-11-2022";
-
-			String sqlDBss = "INSERT INTO Students VALUES(" + i + ",'" + (fName + i) + "','" + (lName + i) + "','"
+			int i = 5;
+			int min = 50;
+            int max = 100;
+			  int random = (int)Math.floor(Math.random()*(max-min+1)+min);
+			String sqlDBss = "INSERT INTO Students VALUES(" + i+random + ",'" + (fName + i) + "','" + (lName + i) + "','"
 					+ birthDay + "')";
 
 			Connection conn = null;
@@ -133,7 +136,7 @@ public class Main {
 
 	}
 
-	public static int addFakeSubject(int n, int i) {
+	public static long addFakeSubject(int n) {
 
 		try {
 
@@ -144,8 +147,13 @@ public class Main {
 			String title = "fakeproduct";
 			String Desc = "very long desc for a product";
 			int pricePerStudent = 150;
+            int i = 1;
 
-			String sqlDBss = "INSERT INTO Students VALUES(" + i + ",'" + (title + i) + "','" + (Desc + i) + "',"
+            int min = 50;
+            int max = 100;
+            int random = (int)Math.floor(Math.random()*(max-min+1)+min);
+
+			String sqlDBss = "INSERT INTO Subjects VALUES(" + i+random + ",'" + (title + i) + "','" + (Desc + i) + "',"
 					+ pricePerStudent + ")";
 
 			Connection conn = null;
@@ -181,7 +189,7 @@ public class Main {
 		String user = "sa";
 		String pass = "root";
 
-		String sqlDB = "Select TOP 100 from Students";
+		String sqlDB = "Select TOP 10 from Students";
 
 		Connection conn = null;
 		try {
@@ -225,7 +233,7 @@ public class Main {
 		String user = "sa";
 		String pass = "root";
 
-		String sqlDB = "Select TOP 50 from Subject";
+		String sqlDB = "Select TOP 15 from Subject";
 
 		Connection conn = null;
 		try {
@@ -291,14 +299,16 @@ public class Main {
 				break;
 
 			case 3:
-				System.out.println(addingSubjectsTable());
-
+				topStudent();
 				break;
 			case 4:
-
+				topStubject();
 				break;
-
+				
 			case 5:
+				System.out.println("Enter How many Random user you want to add");
+				int number = scanner.nextInt();
+				addFakeStudents(number);
 
 				break;
 			case 6:
@@ -408,20 +418,17 @@ public class Main {
 					case 5:
 						System.out.println("Enter How many user you want to add");
 						int firstnumber = scanner.nextInt();
-						System.out.println("Enter nunber to be start count");
-						int secondnumber = scanner.nextInt();
+						
 						for (int i = 5; i < firstnumber; i++) {
-							addFakeStudents(firstnumber, secondnumber);
+							addFakeStudents(firstnumber);
 						}
 
 						break;
 					case 6:
-						System.out.println("Enter How many user you want to add");
+						System.out.println("Enter How many Subject you want to add");
 						int subfirstnumber = scanner.nextInt();
-						System.out.println("Enter nunber to be start count");
-						int subsecondnumber = scanner.nextInt();
 						for (int i = 5; i < subfirstnumber; i++) {
-							addFakeStudents(subfirstnumber, subsecondnumber);
+							addFakeSubject(subfirstnumber);
 						}
 						break;
 					case 7:
