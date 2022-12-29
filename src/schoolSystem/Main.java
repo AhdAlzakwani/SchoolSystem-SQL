@@ -419,7 +419,7 @@ public class Main {
 						System.out.println("Enter How many user you want to add");
 						int firstnumber = scanner.nextInt();
 						
-						for (int i = 5; i < firstnumber; i++) {
+						for (int i = firstnumber; i < 100; i++) {
 							addFakeStudents(firstnumber);
 						}
 
@@ -427,7 +427,7 @@ public class Main {
 					case 6:
 						System.out.println("Enter How many Subject you want to add");
 						int subfirstnumber = scanner.nextInt();
-						for (int i = 5; i < subfirstnumber; i++) {
+						for (int i = subfirstnumber; i < 100; i++) {
 							addFakeSubject(subfirstnumber);
 						}
 						break;
