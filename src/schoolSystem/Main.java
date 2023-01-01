@@ -9,7 +9,6 @@ import java.util.Scanner;
 
 public class Main {
 	String url = "jdbc:sqlserver://localhost:1433;databaseName=SchoolMgt;encrypt=true;trustServerCertificate=true";
-
 	String user = "sa";
 	String pass = "root";
 
@@ -91,7 +90,7 @@ public class Main {
 
 	}
 
-	public static long addFakeStudents(int n) {
+	public static long addFakeStudents(long n) {
 
 		try {
 
@@ -100,14 +99,16 @@ public class Main {
 			String user = "sa";
 			String pass = "root";
 			String fName = "AHD";
-			String lName = "ZAKWANI";
+			String lName = "ZAK";
 			String birthDay = "1-11-2022";
-			int i = 5;
+			
 			int min = 50;
             int max = 100;
 			  int random = (int)Math.floor(Math.random()*(max-min+1)+min);
+			  for(long i = 0; i<=n; i++ ) {
 			String sqlDBss = "INSERT INTO Students VALUES(" + i+random + ",'" + (fName + i) + "','" + (lName + i) + "','"
 					+ birthDay + "')";
+			  
 
 			Connection conn = null;
 
@@ -127,16 +128,17 @@ public class Main {
 			}
 
 			conn.close();
+			  }
 
 		} catch (Exception ex) {
 			System.err.println(ex);
 		}
-
+		
 		return n;
 
 	}
 
-	public static long addFakeSubject(int n) {
+	public static long addFakeSubject(long n) {
 
 		try {
 
@@ -144,13 +146,14 @@ public class Main {
 
 			String user = "sa";
 			String pass = "root";
-			String title = "fakeproduct";
-			String Desc = "very long desc for a product";
+			String title = "JAVA";
+			String Desc = "JAVA IS BEST LANGUAGE";
 			int pricePerStudent = 150;
-            int i = 1;
+           
 
             int min = 50;
             int max = 100;
+      	  for(long i =0; i<=n; i++ ) {
             int random = (int)Math.floor(Math.random()*(max-min+1)+min);
 
 			String sqlDBss = "INSERT INTO Subjects VALUES(" + i+random + ",'" + (title + i) + "','" + (Desc + i) + "',"
@@ -174,7 +177,7 @@ public class Main {
 			}
 
 			conn.close();
-
+      	  }
 		} catch (Exception ex) {
 			System.err.println(ex);
 		}
@@ -183,13 +186,13 @@ public class Main {
 
 	}
 
-	public static void topStudent() {
+	public static void topStudent(int top) {
 		String url = "jdbc:sqlserver://localhost:1433;databaseName=SchoolMgt;encrypt=true;trustServerCertificate=true";
 
 		String user = "sa";
 		String pass = "root";
 
-		String sqlDB = "Select TOP 10 from Students";
+		String sqlDB = "SELECT TOP"+top+"* FROM Students";
 
 		Connection conn = null;
 		try {
@@ -208,7 +211,7 @@ public class Main {
 
 					System.out.println("id : " + m.getInt(1));
 					System.out.println("fname :" + m.getString(2));
-					System.out.println("lname :" + m.getInt(3));
+					System.out.println("lname :" + m.getString(3));
 					System.out.println("birthdate :" + m.getDate(4));
 					System.out.println("*********************************");
 
@@ -227,13 +230,13 @@ public class Main {
 
 	}
 
-	public static void topStubject() {
+	public static void topStubject(int top) {
 		String url = "jdbc:sqlserver://localhost:1433;databaseName=SchoolMgt;encrypt=true;trustServerCertificate=true";
 
 		String user = "sa";
 		String pass = "root";
 
-		String sqlDB = "Select TOP 15 from Subject";
+		String sqlDB = "SELECT TOP"+top+"* FROM Subjects";
 
 		Connection conn = null;
 		try {
@@ -283,7 +286,8 @@ public class Main {
 			System.out.println("3- selects top 10 students");
 			System.out.println("4- selects top 15 Subject ");
 			System.out.println("5- Random values addFakeStudents");
-			System.out.println("6- Sub menu");
+			System.out.println("6- Random values addFakeSubject");
+			System.out.println("7- Sub menu");
 			System.out.println("************************");
 			int option = scanner.nextInt();
 
@@ -299,10 +303,10 @@ public class Main {
 				break;
 
 			case 3:
-				topStudent();
+				topStudent(10);
 				break;
 			case 4:
-				topStubject();
+				topStubject(15);
 				break;
 				
 			case 5:
@@ -311,7 +315,14 @@ public class Main {
 				addFakeStudents(number);
 
 				break;
+				
 			case 6:
+				System.out.println("Enter How many Random user you want to add");
+				long subnumber = scanner.nextInt();
+				addFakeSubject(subnumber);
+
+				break;
+			case 7:
 
 				while (submenuExit) {
 					System.out.println("************************");
@@ -328,10 +339,14 @@ public class Main {
 
 					switch (options) {
 					case 1:
-						topStudent();
+						System.out.println("How many TOP You want:");
+						int top = scanner.nextInt();
+						topStudent(top);
 						break;
 					case 2:
-						topStubject();
+						System.out.println("How many TOP You want:");
+						int topsub = scanner.nextInt();
+						topStubject(topsub);
 
 						break;
 					case 3:
@@ -416,20 +431,22 @@ public class Main {
 						}
 						break;
 					case 5:
-						System.out.println("Enter How many user you want to add");
-						int firstnumber = scanner.nextInt();
+//						System.out.println("Enter How many user you want to add");
+//						int firstnumber = scanner.nextInt();
+//						
+//						for (int i = firstnumber; i < 100; i++) {
+//							addFakeStudents(firstnumber);
 						
-						for (int i = firstnumber; i < 100; i++) {
-							addFakeStudents(firstnumber);
-						}
+						long numbers = 1000;
+						addFakeStudents(numbers);
+						
 
 						break;
 					case 6:
-						System.out.println("Enter How many Subject you want to add");
-						int subfirstnumber = scanner.nextInt();
-						for (int i = subfirstnumber; i < 100; i++) {
-							addFakeSubject(subfirstnumber);
-						}
+						
+						long subjecynumber = 1000;
+						addFakeSubject(subjecynumber);
+						
 						break;
 					case 7:
 						submenuExit = false;
@@ -443,8 +460,6 @@ public class Main {
 			}
 		}
 
-		System.out.println("How many rows you want to add ?");
-		int n = scanner.nextInt();
 
 	}
 
